@@ -22,6 +22,9 @@
   调用函数.
   如果函数定义放在函数使用(调用)的后面,那么在前面必须有函数申明
   函数调用没有限制,但函数定义有限制函数内部不能定义另一个函数
+
+  递归:直接或间接调用函数本身
+    三部分:1.边界条件;2.前进段;3.返回段
 */
 
 
@@ -100,6 +103,7 @@ float Add(float a, float b)
 	return a+b;
 }
 
+
 //int main()//主函数的定义
 //{
 //	/*int Max(int a, int b);
@@ -135,10 +139,89 @@ int Count(int n)
 	return sum;
 }
 
+//int main()
+//{
+//	printf("%d中1的个数:%d\n", 123, Count(123));
+//	printf("%d中1的个数:%d\n", 12121, Count(12121));
+//	printf("%d中1的个数:%d\n", 11111, Count(11111));
+//	return 0;
+//}
+
+
+//有5个学生坐在一起,问第5个学生多少岁,他说比第4个学生大2岁。问第4个学生岁数,
+//他说比第3个学生大2岁。问第3个学生, 又说比第2个学生大2岁。问第2个学生, 说比第1个学生大
+//2岁。最后问第1个学生, 他说是10岁。请问第5个学生多大。
+
+//循环实现
+int Age_for(int n)
+{
+	int temp = 10;
+	for (int i = 1; i < n; i++)
+	{
+		temp += 2;
+	}
+	return temp;
+}
+//递归实现
+//Age(1):求第一个人的年龄
+//Age(2):求第二个人的年龄
+//Age(n):求第n个人的年龄
+//Age(n-1):求第n-1个人的年龄
+int Age(int n)//求第n个人的年龄
+{
+	if (n == 1)
+	{
+		return 10;
+	}
+	else
+		return Age(n - 1) + 2;
+}
+
+//int main()
+//{
+//	printf("%d\n", Age(5));
+//	return 0;
+//}
+
+
+//求阶乘
+//0!==1,1!==1,n!=n*(n-1)!
+long long Fac(int n)//Fac(n)求n的阶乘
+{
+	if (n == 0 || n == 1)
+	{
+		return 1;
+	}
+	return n * Fac(n - 1);
+}
+
+//int main()
+//{
+//	for (int i = 0; i < 10; i++)
+//	{
+//		printf("%d!=%lld\n", i, Fac(i));
+//	}
+//	return 0;
+//}
+
+
+//汉诺塔,把n个盘子,从a,通过b,移到c
+void Hanoi(int n, char a, char b, char c)
+{
+	if (n == 1)//只有一个盘子,直接从a移到c
+	{
+		printf("%c->%c\n", a, c);
+	}
+	else
+	{
+		Hanoi(n - 1, a, c, b);//把上面的n-1个盘子从a通过c移到b
+		printf("%c->%c\n", a, c);//把最下面的一个从a移到c
+		Hanoi(n - 1, b, a, c);//把b上面的n-1个盘子,从b通过a移到c
+	}
+}
+
 int main()
 {
-	printf("%d中1的个数:%d\n", 123, Count(123));
-	printf("%d中1的个数:%d\n", 12121, Count(12121));
-	printf("%d中1的个数:%d\n", 11111, Count(11111));
+	Hanoi(3,'A','B','C');
 	return 0;
 }

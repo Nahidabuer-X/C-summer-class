@@ -220,8 +220,100 @@ void Hanoi(int n, char a, char b, char c)
 	}
 }
 
-int main()
+//int main()
+//{
+//	Hanoi(3,'A','B','C');
+//	return 0;
+//}
+
+
+
+//一维数组作为参数传递,错误应用
+//求一个数组中的最大值
+//int Max(int arr[10])//经常考试,数组作为参数传递最大的错误,这个10是没有意义的
+int Max_err(int arr[])
 {
-	Hanoi(3,'A','B','C');
-	return 0;
+	int tmp = arr[0];//保存最大值
+	for (int i = 1; i < 10; i++)
+	{
+		if (tmp < arr[i])
+		{
+			tmp = arr[i];
+		}
+	}
+	return tmp;
+}
+
+//arr:数组名
+//n:数组长度
+int Max(int arr[],int n)//arr本质是指针,不是数组
+{
+	//在Max函数内部,不能使用sizeof(arr) / sizeof(arr[0])
+	int tmp = arr[0];//保存最大值
+	for (int i = 1; i < n; i++)
+	{
+		if (tmp < arr[i])
+		{
+			tmp = arr[i];
+		}
+	}
+	return tmp;
+}
+
+//int main()
+//{
+//	int arr[] = { 1,5,2,7,8,9,10,4,6,3,11,12 };
+//	//int a = Max_err(arr);//数组作为参数传递时,只传数组的起始地址
+//	int a = Max(arr, sizeof(arr) / sizeof(arr[0]));
+//	printf("数组最大值为%d\n", a);
+//	return 0;
+//}
+
+
+//arr:数组名
+//n:数组长度
+//求arr的平均值
+double Avg(double arr[], int n)
+{
+	double sum = 0;
+	for (int i = 0; i < n; i++)
+	{
+		sum += arr[i];
+	}
+	return sum / n;
+}
+
+//int main()
+//{
+//	/*double arr[] = { 67,78,89.5,100,99,80 };
+//	printf("%lf\n", Avg(arr, sizeof(arr) / sizeof(arr[0])));*/
+//
+//	double score1[5] = { 98.5,97,91.5,60,55 };
+//	double score2[10] = { 67.5,89.5,99,69.5,77,89.5,76.5,54,60,99.5 };
+//	printf("第一个班平均分: %.2lf\n", Avg(score1, sizeof(score1) / sizeof(score1[0])));
+//	printf("第二个班平均分: %.2lf\n", Avg(score2, sizeof(score2) / sizeof(score2[0])));
+//	return 0;
+//}
+
+
+//用选择法对数组中10个整数按由大到小排序(每次都在待排序中找最小值,和待排序第一个值交换)
+//arr:数组名,n:数组长度
+void SelectSort(int arr[], int n)
+{
+	int k;//最小值下标
+	int temp;
+	for (int i = 0; i < n - 1; i++)//排序的趟数
+	{
+		k = i;
+		for (int j = i; j < n; j++)
+		{
+			if (arr[j] < arr[k])//找到更小值,需要更新数据
+			{
+				k = j;
+			}
+		}
+		temp = arr[i];
+		arr[i] = arr[k];
+		arr[k] = temp;
+	}
 }

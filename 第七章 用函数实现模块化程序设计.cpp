@@ -227,6 +227,10 @@ void Hanoi(int n, char a, char b, char c)
 //}
 
 
+/*
+ 数组作为参数传递结论:一定要传数组名和数组长度
+*/
+
 
 //一维数组作为参数传递,错误应用
 //求一个数组中的最大值
@@ -312,8 +316,108 @@ void SelectSort(int arr[], int n)
 				k = j;
 			}
 		}
-		temp = arr[i];
-		arr[i] = arr[k];
-		arr[k] = temp;
+		if (i != k)
+		{
+			temp = arr[i];
+			arr[i] = arr[k];
+			arr[k] = temp;
+		}
 	}
 }
+
+//输出长度为n的数组arr所有元素
+void Show_arr(int arr[], int n)
+{
+	for (int i = 0; i < n; i++)
+	{
+		printf("%d ", arr[i]);
+	}
+	printf("\n");
+}
+
+//int main()
+//{
+//	int arr[] = { 3,6,8,9,12,34,7,45,3,90,78,66,43 };
+//	SelectSort(arr, sizeof(arr) / sizeof(arr[0]));
+//	Show_arr(arr, sizeof(arr) / sizeof(arr[0]));
+//	return 0;
+//}
+
+
+//输出row行col列的二维数组arr
+void Show(int arr[][4], int row, int col)
+{
+	for (int i = 0; i < row; i++)
+	{
+		for (int j = 0; j < col; j++)
+		{
+			printf("%d ", arr[i][j]);
+		}
+		printf("\n");
+	}
+}
+
+//求3*4二维数组的最大值
+int Max34(int arr[3][4], int row, int col)
+{
+	int temp = arr[0][0];
+	for (int i = 0; i < row; i++)
+	{
+		for (int j = 0; j < col; j++)
+		{
+			if (arr[i][j] > temp)
+			{
+				temp = arr[i][j];
+			}
+		}
+	}
+	return temp;
+}
+
+//int main()
+//{
+//	int arr[][4] = { 1,2,3,4,5,6,7,8,9 };
+//	Show(arr, 3, 4);
+//	printf("%d\n", Max34(arr, 3, 4));
+//	return 0;
+//}
+
+
+
+/*
+ 全局变量:定义在函数外部的变量.尽量少用,学习时不允许用(不安全)
+ 局部变量:定义在函数内部的变量,包括形参
+                           作用域                                生命周期                默认值
+ 全局变量:     定义开始到整个文件结束都可以使用       从程序运行开始创建,程序结束才销毁  0(不要使用)
+ 局部变量: 只在本函数内部使用(优点,可以防止名字污染)     从进入函数创建,函数结束销毁     无效(随机值)
+ static:静态,修饰变量或者函数
+ 普通局部变量:        在函数内部使用                     从进入函数创建,函数结束销毁        无
+ 静态局部变量:        在函数内部使用                 从第一次进入函数创建,程序结束销毁   0(不要使用)
+
+ 存储类别:自动的(auto)(在c语言不再使用,C++用的多),静态的(static),寄存器的(register)(C不使用),外部的(extern)(C++引用c语言的代码)
+ register:建议编译器对这个变量进行优化,这个变量会多次使用,建议把它从内存加载到寄存器
+*/
+
+
+//int g_a = 10;//全局变量
+
+//int main()
+//{
+//	int a = 10;//局部变量
+//	return 0;
+//}
+
+void Show1()
+{
+	static int a = 0;;//静态变量,创建后就不死(这一句代码只有第一次进入函数时调用,其他时间都不执行)
+	++a;
+	printf("%d\n", a);
+}
+
+//int main()
+//{
+//	Show1();//此时输出1
+//	Show1();//此时输出2
+//	static int c;
+//	printf("%d\n", c);//输出0
+//}

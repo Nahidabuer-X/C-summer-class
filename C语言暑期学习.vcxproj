@@ -123,8 +123,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="第七章.cpp" />
-    <ClCompile Include="第六章.cpp" />
+    <ClCompile Include="第七章 用函数实现模块化程序设计.cpp" />
+    <ClCompile Include="第六章 利用数组处理批量数据.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

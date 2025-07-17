@@ -21,5 +21,8 @@
     <ClCompile Include="第七章 用函数实现模块化程序设计.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="第八章 善于利用指针.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

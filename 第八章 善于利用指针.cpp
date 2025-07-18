@@ -466,3 +466,51 @@ void Show3(int(*brr)[4], int row)
 //	Show3(a, 3);
 //	return 0;
 //}
+
+
+
+/*
+ 字符数组和字符串常量
+ const:不允许修改(其修饰的)内容
+       int a = 10;//a没有任何限制,可读可写
+	   a = 20;//合法
+	   const int ca = 10;//ca制度,不允许修改ca的值
+	1.基本类型对于const是透明的.例如 const int ca = 10;等同于 int const ca = 10;
+	2.const只能修饰"直接"右边
+*/
+
+
+//int main()
+//{
+//	//阿里面试题
+//	char str1[] = "hello world";//是字符串数组,是字符串
+//	//char* str2 = "hello world";//是字符串,是字符串常量,在VS2022中语法错误,在VCcode中可以
+//	const char* str2 = "hello world";
+//	//printf("%s\n%s\n", str1, str2);
+//	str1[0] = 'x';//数组中每一个元素都能修改
+//	//str2[0] = 'x';//在VScode能编译,但运行崩溃,在VS2022语法错误,建议使用新的IDE(编译器)
+//	return 0;
+//}
+
+//int main()
+//{
+//	int a = 10;
+//	a = 20;
+//	printf("%d\n", a);
+//	const int ca = 10;
+//	//ca = 20;//错误
+//	int const cb = 10;//和ca等价
+//
+//	int b = 20;
+//	int* p = &a;
+//	p = &b;//修改p的内容
+//	*p = 100;//修改*p的内容
+//	const int* p2 = &a;
+//	p2 = &b;
+//	//*p2 = 100;//错误//const只能修饰"直接"右边
+//	int const* p3 = &a;//等同p2
+//	int* const p4 = &a;
+//	//p4 = &b;//错误//const只能修饰"直接"右边
+//	*p4 = 100;
+//	return 0;
+//}

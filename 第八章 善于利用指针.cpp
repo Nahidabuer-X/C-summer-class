@@ -20,6 +20,15 @@
  一维数组arr的名字arr表示整个数组只在如下情况
    1.在定义数组的同一个函数中求sizeof.例如 int arr[10];sizeof(arr)->40
    2.在定义数组的同一个函数中,&arr+1,表示整个数组的大小,例如 int arr[10],&arr,&arr+1
+  其他情况,arr都表示数组的起始地址(数组首元素的地址)
+
+ 指针的算术运算:前提这个指针指向一个数组,同时程序应该保存不越界
+   p+整数,p++,++p合法
+   p-整数,p--,--p合法
+ 指针的关系运算.>,<,>=,<=,==,!= .前提,必须在同一个数组里面
+
+ 数组作为参数传递:数组名仅仅表示数组首元素的地址
+     传数组名+数组长度
 */
 
 //int main()
@@ -168,14 +177,292 @@ int Fun(int a, int b, int c, double* x1, double* x2)
 
 
 //指针指向数组元素
-int main()
-{
-	int arr[10] = { 1,3,5,7,9,11,13,15,17,19 };
-	//int* p = &arr[0];//第一个元素int的地址
-	int* p = arr;//和上一行等价
-	printf("%d,%d\n", arr[0], *p);
+//int main()
+//{
+//	int arr[10] = { 1,3,5,7,9,11,13,15,17,19 };
+//	//int* p = &arr[0];//第一个元素int的地址
+//	int* p = arr;//和上一行等价
+//	//printf("%d,%d\n", arr[0], *p);
+//
+//	//printf("%d\n", sizeof(arr));//整个数组的大小
+//	//printf("%d,%d\n", &arr, &arr + 1);//&arr+1表示加整个数组的大小(字节数)
+//
+//	//printf("%d\n", *p);
+//	 
+//	//通过指针输出访问数组的所有元素
+//	/*for (int i = 0; i < 10; i++, p++)
+//	{
+//		printf("%d ", *p);
+//	}*/
+//	/*for (int i = 0; i < 10; i++)
+//	{
+//		printf("%d ", *p++);
+//	}*/
+//	//for (int i = 0; i < 10; i++)
+//	//{
+//	//	printf("%d ", *(p + i));//*(p + 1)
+//	//}
+//	return 0;
+//}
 
-	printf("%d\n", sizeof(arr));//整个数组的大小
-	printf("%d,%d\n", &arr, &arr + 1);//&arr+1表示加整个数组的大小(字节数)
-	return 0;
+//指针在数组中的运算
+//int main()
+//{
+//	int arr[10] = { 1,3,5,7,9,11,13,15,17,19 };
+//	int* p = &arr[9];
+//	//从后往前输出数组的所有元素
+//	/*for (int i = 0; i < 10; i++)
+//	{
+//		printf("%d ", *p);
+//		p--;
+//	}*/
+//	/*for (int i = 0; i < 10; i++)
+//	{
+//		printf("%d ", *p--);
+//	}*/
+//	for (int i = 0; i < 10; i++)
+//	{
+//		printf("%d ", *(p - i));
+//	}
+//}
+
+
+//有一个整形数组a,有10个元素,要求输出数组中的全部元素
+//int main()
+//{
+//	int a[10];
+//	int* p, i;
+//	printf("请输入10个整数");
+//	/*for ( i = 0; i < 10; i++)
+//	{
+//		scanf("%d", &a[i]);
+//	}*/
+//	//数组元素用数组名和下标表示
+//	/*for (i = 0; i < 10; i++)
+//	{
+//		printf("%d ", a[i]);
+//	}*/
+//	//用指针指向当前的数组元素
+//	/*for (p = a; p < (a + 10); p++)
+//	{
+//		printf("%d ", *p);
+//	}*/
+//	//更好的写法
+//	/*p = a;
+//	for (i = 0; i < 10; i++)
+//	{
+//		printf("%d ", *p++);
+//	}*/
+//	//for ( i = 0; i < 10; i++)
+//	//{
+//	//	printf("%d ", *(a + i)); //printf("%d ", *(p + i));
+//	//}
+//
+//	p = a;
+//	for (i = 0; i < 10; i++)
+//	{
+//		scanf("%d", p++);
+//	}
+//	//p已经到达a的尾后指针
+//	p = a;
+//	for (i = 0; i < 10; i++, p++)
+//	{
+//		printf("%d ", *p);
+//	}
+//	printf("\n");
+//	return 0;
+//}
+
+
+//指针的关系运算
+//int main()
+//{
+//	//int a = 10;
+//	//int b = 20;
+//	//int* p = &a;
+//	//printf("%d\n", *(p + 1));//错误的应用,必须在数组里面
+//	//int* q = &b;
+//	int arr[10] = { 1,2,3,4,5,6,7,8,9,10 };
+//	//从头到尾输出数组元素
+//	//for (int* p = arr; p != &arr[10]; p++)//标准使用尾后(尾巴的后面)地址(指针)
+//	//{
+//	//	printf("%d ", *p);
+//	//}
+//	//for (int* p = arr; p < &arr[10]; p++)
+//	/*for (int* p = arr; p <= &arr[9]; p++)
+//	{
+//		printf("%d ", *p);
+//	}*/
+//	return 0;
+//}
+
+
+//输出数组的所有元素
+//p:数组的起始地址,n:元素的个数
+void Show(int* p, int n)
+{
+	for (int i = 0; i < n; i++)
+	{
+		printf("%d ", p[i]);
+	}
+	printf("\n");
 }
+
+//int main()
+//{
+//	int arr[] = { 1,2,3,4,5,6,7,8,9,10 };
+//	Show(arr, sizeof(arr) / sizeof(arr[0]));
+//	return 0;
+//}
+
+
+//将数组a中的n个整数按相反顺序存放
+//x:数组的起始地址,n:元素的个数
+void inv(int* x, int n)
+{
+	int temp;
+	//for (int i = 0, j = n - 1; i < j; i++, j--)//把x当作数组名操作.没有问题
+	//{
+	//	temp = x[i];
+	//	x[i] = x[j];
+	//	x[j] = temp;
+	//}
+	for (int i = 0, j = n - 1; i < j; i++, j--)//把x当作指针
+	{
+		temp = *(x + i);
+		*(x + i) = *(x + j);
+		*(x + j) = temp;
+	}
+}
+
+//int main()
+//{
+//	int arr[] = { 1,3,5,7,9,11,13,15,17,19 };
+//	inv(arr, sizeof(arr) / sizeof(arr[0]));
+//	Show(arr, sizeof(arr) / sizeof(arr[0]));
+//	return 0;
+//}
+
+
+//用指针方法对10个整数按由大到小顺序排序(选择法)(下标)
+//arr:数组的起始地址,n:元素的个数
+void SelectSort1(int* arr, int n)
+{
+	int k;//最小值的下标
+	int temp;//临时变量
+	for (int i = 0; i < n - 1; i++)//趟数
+	{
+		k = i;
+		for (int j = i + 1; j < n; j++)//找最小值的下标
+		{
+			if (arr[j] < arr[k])//需要更新数据
+			{
+				k = j;
+			}
+		}
+		if (k != i)//把"第一个"值和最小值交换
+		{
+			temp = arr[i];
+			arr[i] = arr[k];
+			arr[k] = temp;
+		}
+	}
+}
+
+//用指针方法对10个整数按由大到小顺序排序(选择法)(指针)
+void SelectSort(int* arr, int n)
+{
+	int k;//最小值的下标
+	int temp;//临时变量
+	for (int i = 0; i < n - 1; i++)//趟数
+	{
+		k = i;
+		for (int j = i + 1; j < n; j++)//找最小值的下标
+		{
+			if (*(arr + j) < *(arr + k))//需要更新数据
+			{
+				k = j;
+			}
+		}
+		if (k != i)//把"第一个"值和最小值交换
+		{
+			temp = *(arr + i);
+			*(arr + i) = *(arr + k);
+			*(arr + k) = temp;
+		}
+	}
+}
+
+//int main()
+//{
+//	int arr[] = { 11,3,5,27,9,101,123,65,77,19 };
+//	//SelectSort1(arr, sizeof(arr) / sizeof(arr[0]));
+//	SelectSort(arr, sizeof(arr) / sizeof(arr[0]));
+//	Show(arr, sizeof(arr) / sizeof(arr[0]));
+//	return 0;
+//}
+
+
+
+//int main()
+//{
+//	int arr[4];
+//	int brr[3][4] = { {1,2,3,4},{5,6,7,8},{9,10,11,12} };//行优先,想象为一维数组,每一行为一个元素
+//	int* p = arr;//arr的类型就是int*
+//	p = arr + 1;//arr+1的类型还是int*
+//	int a = arr[0];//arr[0]的类型是int
+//	//////////////////////////////////
+//	//int** p2 = brr;//错误的,说明brr的类型不是int**
+//	int(*p2)[4] = brr;
+//	int* p3 = brr[0];//brr[0]的含义和arr相同(int*)
+//	p2 = brr + 1;//brr+1的类型是int(*x)[4]
+//	p3 = brr[0] + 1;//brr[0]+1的类型是int*
+//	int b = brr[0][0];//brr[0][0]的类型是int
+//	b = brr[0][0] + 1;//brr[0][0]+1的类型是int
+//	return 0;
+//}
+
+
+//输出二维数组所有元素的值
+//void Show2(int brr[3][4])//3是个无效值,等同下一行
+//void Show2(int brr[][4])//等同下一行
+void Show2(int(*brr)[4])
+{
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			printf("%d ", brr[i][j]);
+		}
+		printf("\n");
+	}
+}
+
+void Show3(int(*brr)[4], int row)
+{
+	for (int i = 0; i < row; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			printf("%d ", brr[i][j]);
+		}
+		printf("\n");
+	}
+}
+
+
+//int main()
+//{
+//	int a[3][4] = { 1,2,3,4,5,6,7,8,9,10,11,12 };
+//	/*for (int i = 0; i < 3; i++)
+//	{
+//		for (int j = 0; j < 4; j++)
+//		{
+//			printf("%d ", a[i][j]);
+//		}
+//		printf("\n");
+//	}*/
+//	//Show2(a);
+//	Show3(a, 3);
+//	return 0;
+//}

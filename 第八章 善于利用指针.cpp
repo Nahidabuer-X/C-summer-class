@@ -4,6 +4,7 @@
 #include<ctype.h>
 #include<complex>
 #include<math.h>
+#include <stdlib.h>
 
 
 /*
@@ -514,3 +515,177 @@ void Show3(int(*brr)[4], int row)
 //	*p4 = 100;
 //	return 0;
 //}
+
+
+//字符串和普通数组区别:字符串可以通过'\0'判断结尾
+//不使用库函数,实现字符串复制   ||  ||
+//des:目的地址.(n1:目的数组长度.)   ||
+//src:源字符串的地址.(n2:源字符串的长度)
+void Mystrcpy(char* des, const char* src)//不允许修改src. strcpy(一个),strcmp(两个都)...等都不允许修改
+{
+	int i;
+	for (i = 0; src[i] != '\0'; i++)
+	{
+		des[i] = src[i];
+	}
+	des[i] = '\0';
+}
+
+//int main()
+//{
+//	char str1[] = "abcde";
+//	char str2[100];
+//	//调用Mystrcpy,实现把str1复制到str2中
+//	Mystrcpy(str2, str1);
+//	printf("str2=%s\n", str2);
+//	return 0;
+//}
+
+
+/*
+ 指向函数的指针(工作中很常用)
+ 函数族
+ 标准规定:函数名也表示函数的入口地址,即Max == &Max
+
+ qsort:对任意的数据进行排序(升序)最不好处理的如何比较两个数据的大小(例如学生,可能是分数,身高,体重)
+      所以:需要提供对数据比较的依据
+ 局部变量:分配的内存区域在栈,很小(1M~10M),我的内存64G
+    10,000,000个整数,至少需要40M内存
+ 动态内存:
+ void:没有,修饰返回值和参数列表
+ void*:没有类型信息的指针,这个指针仅仅记录地址
+    使用的场景:1.需要大容量内存时;
+	           2.在一个函数创建的内存在别的函数中还需要使用也需要;
+			   3.在VS2022中需要使用变量作为数组的长度
+   如何创建动态内存:
+             malloc:需要引用<stdlib.h>,失败返回NULL,成功返回地址
+             calloc:与malloc类似,但会把每个元素初始化为0
+             realoc:主要用于修改动态内存的大小
+   如何释放动态内存:
+               free:如果没有释放动态申请的内存会出现内存泄漏(这是C和C++最麻烦发问题)
+	内存泄漏:申请了但忘记释放,导致申请出去的内存别的程序无法再使用,可用内存变少,速度变慢
+	泄露的内存什么情况下会释放?:1.程序(进程)结束.2.关机(重启)
+*/
+
+
+int Max(int a, int b)
+{
+	return a >= b ? a : b;
+}
+
+int Min(int a, int b)
+{
+	return a <= b ? a : b;
+}
+
+int Avg(int a, int b)
+{
+	return (a + b) / 2;
+}
+
+
+//int main()
+//{
+//	int(*pfun)(int, int);//pfun一定是指针,该指针参数指向函数,函数参数为int,int,返回值为int,即fpun是一个函数指针
+//	pfun = Max;
+//	pfun = Min;
+//	pfun = Avg;//等同于pfun = &Avg;
+//	printf("%d\n", pfun(10, 20));
+//	printf("%d\n", Max(10, 20));//麻烦???
+//	return 0;
+//}
+
+
+//返回值:第一个>第二个,返回大于0的数字
+//返回值:第一个=第二个,返回0
+//返回值:第一个<第二个,返回小于0的数字
+int Cmp_int(const void* vp1, const void* vp2)
+{
+	//(int*)vp1, (int*)vp2;//还原本质
+	return *(int*)vp1 - *(int*)vp2;
+}
+
+int Cmp_double(const void* vp1, const void* vp2)
+{
+	//return *(double*)vp1 - *(double*)vp2;//错误,0.5-0.4 == 0.1 -> int 0
+	double temp = *(double*)vp1 - *(double*)vp2;
+	if (temp > 0)
+		return 1;
+	else if (temp < 0)
+		return -1;
+	else
+		return 0;
+}
+
+
+//int main()
+//{
+//	int arr[] = { 1,3,5,9,0,12,13,41,22,10,51,6,8 };//对arr排序
+//	double brr[] = { 34.5,12.3,56.7,89.2,34.3,34.2 };//对brr排序
+//	qsort(arr, sizeof(arr) / sizeof(arr[0]), sizeof(arr[0]), Cmp_int);//库函数,快速排序
+//	qsort(brr, sizeof(brr) / sizeof(brr[0]), sizeof(brr[0]), Cmp_double);
+//	return 0;
+//}
+
+
+//int main()
+//{
+//	char arr[1000 * 1000];//可以 略小于1M
+//	//char arr[1024 * 1024];//崩溃     1M
+//	//char arr[100000000] = "";//程序崩溃
+//	printf("好了\n");
+//	return 0;
+//}
+
+
+char* GetMemory()
+{
+	//char str[] = "hello world";
+	char* str = (char*)malloc(100 * sizeof(char));
+	strcpy(str, "hello world");
+	return str;//已经被销毁的内存
+}
+
+int main()
+{
+	/*char* p = GetMemroy();
+	printf("%s\n", p);*/
+
+	//需要创建100M内存
+	/*void* p = malloc(1024 * 1024 * 100);
+	if (p == NULL)
+	{
+		printf("申请失败\n");
+	}
+	else
+		printf("成功\n");
+	getchar();*/
+	
+	//申请100个int单元
+	//int n = 100;
+	//int* arr = (int*)calloc(n, sizeof(int));//arr可以看作是100个长度的int数组名
+	//for (int i = 0; i < n; i++)
+	//{
+	//	arr[i] = i;
+	//}
+
+	/*char* p = GetMemory();
+	printf("%s\n", p);
+	free(p);*/
+
+	//申请10个int单元
+	int n = 10;
+	//int arr[n];//VS2022变量不能作为数组长度
+	int* arr = (int*)malloc(n * sizeof(int));
+	for (int i = 0; i < n; i++)
+	{
+		arr[i] = i;
+	}//使用过程中内存不够了?,需要2n个单元 .realloc
+	arr = (int*)realloc(arr, 2 * n * sizeof(int));
+	for (int i = 0; i < 2 * n; i++)
+	{
+		arr[i] = i;
+	}
+	free(arr);
+	return 0;
+}

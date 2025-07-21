@@ -24,5 +24,8 @@
     <ClCompile Include="第八章 善于利用指针.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="第九章 用户自己建立数据类型.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

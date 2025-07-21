@@ -4,7 +4,7 @@
 #include<ctype.h>
 #include<complex>
 #include<math.h>
-#include <stdlib.h>
+#include<stdlib.h>
 
 
 /*

@@ -646,46 +646,46 @@ char* GetMemory()
 	return str;//已经被销毁的内存
 }
 
-int main()
-{
-	/*char* p = GetMemroy();
-	printf("%s\n", p);*/
-
-	//需要创建100M内存
-	/*void* p = malloc(1024 * 1024 * 100);
-	if (p == NULL)
-	{
-		printf("申请失败\n");
-	}
-	else
-		printf("成功\n");
-	getchar();*/
-	
-	//申请100个int单元
-	//int n = 100;
-	//int* arr = (int*)calloc(n, sizeof(int));//arr可以看作是100个长度的int数组名
-	//for (int i = 0; i < n; i++)
-	//{
-	//	arr[i] = i;
-	//}
-
-	/*char* p = GetMemory();
-	printf("%s\n", p);
-	free(p);*/
-
-	//申请10个int单元
-	int n = 10;
-	//int arr[n];//VS2022变量不能作为数组长度
-	int* arr = (int*)malloc(n * sizeof(int));
-	for (int i = 0; i < n; i++)
-	{
-		arr[i] = i;
-	}//使用过程中内存不够了?,需要2n个单元 .realloc
-	arr = (int*)realloc(arr, 2 * n * sizeof(int));
-	for (int i = 0; i < 2 * n; i++)
-	{
-		arr[i] = i;
-	}
-	free(arr);
-	return 0;
-}
+//int main()
+//{
+//	/*char* p = GetMemroy();
+//	printf("%s\n", p);*/
+//
+//	//需要创建100M内存
+//	/*void* p = malloc(1024 * 1024 * 100);
+//	if (p == NULL)
+//	{
+//		printf("申请失败\n");
+//	}
+//	else
+//		printf("成功\n");
+//	getchar();*/
+//	
+//	//申请100个int单元
+//	//int n = 100;
+//	//int* arr = (int*)calloc(n, sizeof(int));//arr可以看作是100个长度的int数组名
+//	//for (int i = 0; i < n; i++)
+//	//{
+//	//	arr[i] = i;
+//	//}
+//
+//	/*char* p = GetMemory();
+//	printf("%s\n", p);
+//	free(p);*/
+//
+//	//申请10个int单元
+//	int n = 10;
+//	//int arr[n];//VS2022变量不能作为数组长度
+//	int* arr = (int*)malloc(n * sizeof(int));
+//	for (int i = 0; i < n; i++)
+//	{
+//		arr[i] = i;
+//	}//使用过程中内存不够了?,需要2n个单元 .realloc
+//	arr = (int*)realloc(arr, 2 * n * sizeof(int));
+//	for (int i = 0; i < 2 * n; i++)
+//	{
+//		arr[i] = i;
+//	}
+//	free(arr);
+//	return 0;
+//}

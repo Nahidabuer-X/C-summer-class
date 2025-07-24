@@ -25,7 +25,10 @@
          fclose:关闭文件
          fwrite:把内存的数据往文件中写.(fputc)
          fread:从文件中读取数据到内存,返回值很重要
-         fseek:
+         fseek:改变文件读写位置标记
+     文件读写位置标记.光标(图形界面的说明).读写时自动移动
+         顺序读写
+         随机读写:改变文件读写位置标记(光标)
 */
 
 
@@ -151,12 +154,94 @@ void Save(Student* arr, int n)
     fclose(fw);
 }
 
-//读写二进制数据
-int main()
+//写二进制数据
+//int main()
+//{
+//    Student stu[10];
+//    int len = sizeof(stu) / sizeof(stu[0]);//长度
+//    Input(stu, len);
+//    Save(stu, len);
+//    return 0;
+//}
+
+//读二进制文件的数据(从二进制文件读取学生输出信息并输出到屏幕)
+void Show()
 {
-    Student stu[10];
-    int len = sizeof(stu) / sizeof(stu[0]);//长度
-    Input(stu, len);
-    Save(stu, len);
-    return 0;
+    FILE* fr = fopen("1.txt", "rb");
+    if (fr == NULL)
+    {
+        printf("打开文件失败,请检查文件路径是否正确\n");
+        return;//退出函数
+    }
+    Student stu;//保存从文件读取的数据
+    while (fread(&stu, sizeof(Student), 1, fr) > 0)
+    {
+        //把stu的数据输出到屏幕
+        printf("%s %d %d %s\n", stu.name, stu.num, stu.age, stu.addr);
+    }
+    fclose(fr);
 }
+
+//int main()
+//{
+//    Show();
+//    return 0;
+//}
+
+
+
+//fseek的简单应用
+//把D:\\1.txt文件的内容(前提有该文件,并有数据).读两次并输出到屏幕
+//int main()
+//{
+//    FILE* fr = fopen("D:\\1.txt", "r");
+//    if (fr == NULL)
+//    {
+//        printf("打开文件失败,请检查文件路径是否正确\n");
+//        return -1;//退出函数
+//    }
+//    char buf1[100] = "";
+//    int len1;
+//    char buf2[100] = "";
+//    int len2;
+//    //len1 = fread(buf1, sizeof(char), 100, fr);
+//    //len2 = fread(buf2, sizeof(char), 100, fr);//第二次读取为空的原因是已经到达文件末尾
+//
+//    len1 = fread(buf1, sizeof(char), 100, fr);
+//    //fseek(fr, 0, SEEK_SET);//文件开头作为参照
+//    //fseek(fr, -len1, SEEK_CUR);//当前文件位置指针作为参照点
+//    fseek(fr, -len1, SEEK_END);//文件末尾作为参照点
+//    len2 = fread(buf2, sizeof(char), 100, fr);
+//
+//    printf("%d %s\n", len1, buf1);
+//    printf("%d %s\n", len2, buf2);
+//    return 0;
+//}
+
+
+
+//在磁盘文件上存有10个学生数据.要求第1,3,5,7,9个学生数据输入计算机,并在屏幕上显示出来.
+//int main()
+//{
+//    FILE* fr = fopen("1.txt", "rb");
+//    if (fr == NULL)
+//    {
+//        printf("打开文件失败,请检查文件路径是否正确\n");
+//        return -1;//退出函数
+//    }
+//    Student stu;
+//    int len;
+//    for (int i = 0; i < 5; i++)//读五个学生信息(1,3,5,7,9)
+//    {
+//        len = fread(&stu, sizeof(Student), 1, fr);
+//        if (len < 1)
+//        {
+//            printf("文件结束了\n");
+//            break;
+//        }
+//        printf("%s %d %d %s\n", stu.name, stu.num, stu.age, stu.addr);
+//        fseek(fr, sizeof(Student), SEEK_CUR);//跳过一个学生
+//    }
+//    fclose(fr);
+//    return 0;
+//}
